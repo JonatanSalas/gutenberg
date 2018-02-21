@@ -16,7 +16,7 @@ describe( 'PostTaxonomies', () => {
 			<PostTaxonomies postType="page" taxonomies={ taxonomies } />
 		);
 
-		expect( wrapper.children() ).toHaveLength( 0 );
+		expect( wrapper.at( 0 ) ).toHaveLength( 0 );
 	} );
 
 	it( 'should render taxonomy components for taxonomies assigned to post type', () => {
@@ -43,9 +43,8 @@ describe( 'PostTaxonomies', () => {
 			<PostTaxonomies postType="page" taxonomies={ taxonomies } />
 		);
 
-		expect( wrapper.children() ).toHaveLength( 1 );
-		expect( wrapper.childAt( 0 ).props() ).toEqual( {
-			label: 'Categories',
+		expect( wrapper.at( 0 ) ).toHaveLength( 1 );
+		expect( wrapper.at( 0 ).at( 0 ).props() ).toEqual( {
 			slug: 'category',
 			restBase: 'categories',
 		} );
