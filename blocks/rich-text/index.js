@@ -34,6 +34,7 @@ import TinyMCE from './tinymce';
 import { pickAriaProps } from './aria';
 import patterns from './patterns';
 import { EVENTS } from './constants';
+import { isVerticalEdge } from '../../utils/dom';
 
 const { BACKSPACE, DELETE, ENTER } = keycodes;
 
@@ -478,8 +479,8 @@ export class RichText extends Component {
 		const rootNode = this.editor.getBody();
 
 		if (
-			( event.keyCode === BACKSPACE && isHorizontalEdge( rootNode, true ) ) ||
-			( event.keyCode === DELETE && isHorizontalEdge( rootNode, false ) )
+			( event.keyCode === BACKSPACE && isVerticalEdge( rootNode, true ) && isHorizontalEdge( rootNode, true ) ) ||
+			( event.keyCode === DELETE && isVerticalEdge( rootNode, false ) && isHorizontalEdge( rootNode, false ) )
 		) {
 			if ( ! this.props.onMerge && ! this.props.onRemove ) {
 				return;

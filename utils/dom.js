@@ -58,7 +58,12 @@ export function isHorizontalEdge( container, isReverse, collapseRanges = false )
 
 	const maxOffset = node.nodeType === TEXT_NODE ? node.nodeValue.length : node.childNodes.length;
 
-	if ( ! isReverse && offset !== maxOffset ) {
+	if (
+		! isReverse &&
+		offset !== maxOffset &&
+		// content editables with only a BR element are considered empty
+		( offset !== 0 || maxOffset !== 1 || node.nodeType === TEXT_NODE || ! node.childNodes.length || node.childNodes[ 0 ].tagName !== 'BR' )
+	) {
 		return false;
 	}
 
