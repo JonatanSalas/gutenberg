@@ -12,7 +12,6 @@ import {
 } from '@wordpress/editor';
 import { Fragment, compose } from '@wordpress/element';
 import { withSelect } from '@wordpress/data';
-import { withViewportMatch } from '@wordpress/viewport';
 
 /**
  * Internal dependencies
@@ -20,7 +19,7 @@ import { withViewportMatch } from '@wordpress/viewport';
 import './style.scss';
 import BlockInspectorButton from './block-inspector-button';
 
-function VisualEditor( { hasFixedToolbar, isLargeViewport } ) {
+function VisualEditor( { hasFixedToolbar } ) {
 	return (
 		<BlockSelectionClearer className="edit-post-visual-editor">
 			<EditorGlobalKeyboardShortcuts />
@@ -29,7 +28,7 @@ function VisualEditor( { hasFixedToolbar, isLargeViewport } ) {
 			<WritingFlow>
 				<PostTitle />
 				<BlockList
-					showContextualToolbar={ isLargeViewport && ! hasFixedToolbar }
+					showContextualToolbar={ ! hasFixedToolbar }
 					renderBlockMenu={ ( { children, onClose } ) => (
 						<Fragment>
 							<BlockInspectorButton onClick={ onClose } />
@@ -46,5 +45,4 @@ export default compose( [
 	withSelect( ( select ) => ( {
 		hasFixedToolbar: select( 'core/edit-post' ).isFeatureActive( 'fixedToolbar' ),
 	} ) ),
-	withViewportMatch( { isLargeViewport: 'medium' } ),
 ] )( VisualEditor );

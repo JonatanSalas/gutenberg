@@ -3,7 +3,6 @@
  */
 import { compose } from '@wordpress/element';
 import { withSelect } from '@wordpress/data';
-import { withViewportMatch } from '@wordpress/viewport';
 
 /**
  * WordPress dependencies
@@ -24,7 +23,7 @@ import {
  */
 import './style.scss';
 
-function HeaderToolbar( { hasFixedToolbar, isLargeViewport } ) {
+function HeaderToolbar( { hasFixedToolbar } ) {
 	return (
 		<NavigableToolbar
 			className="edit-post-header-toolbar"
@@ -35,7 +34,7 @@ function HeaderToolbar( { hasFixedToolbar, isLargeViewport } ) {
 			<EditorHistoryRedo />
 			<TableOfContents />
 			<MultiBlocksSwitcher />
-			{ hasFixedToolbar && isLargeViewport && (
+			{ hasFixedToolbar && (
 				<div className="edit-post-header-toolbar__block-toolbar">
 					<BlockToolbar />
 				</div>
@@ -48,5 +47,4 @@ export default compose( [
 	withSelect( ( select ) => ( {
 		hasFixedToolbar: select( 'core/edit-post' ).isFeatureActive( 'fixedToolbar' ),
 	} ) ),
-	withViewportMatch( { isLargeViewport: 'medium' } ),
 ] )( HeaderToolbar );
